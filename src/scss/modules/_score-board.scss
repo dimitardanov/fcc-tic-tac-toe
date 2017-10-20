@@ -1,0 +1,54 @@
+
+#score-board {
+  border-bottom: 3px solid $gray-base;
+  margin-top: 50px;
+  height: 2.2em;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  max-width: 600px;
+
+  div {
+    text-align: center;
+    height: 2em;
+    line-height: 2em;
+  }
+}
+
+.score {
+  flex-grow: 1;
+  margin: 0 5px;
+}
+
+.player {
+  min-width: 100px;
+  text-align: center;
+  color: $text-color-lighter;
+  padding: 0;
+  border: 0;
+  flex-grow: 2;
+  transition-duration: 0.3s;
+  transition-property: transform;
+  transition-timing-function: ease-in-out;
+  transform: translate(0, 25px);
+
+  &:first-child {
+    margin-left: 50px;
+  }
+
+  &:last-child {
+    margin-right: 50px;
+  }
+}
+
+.human {
+  background-color: #a40000;
+}
+
+.computer {
+  background-color: #204a87;
+}
+
+.player-active {
+  transform: translate(0, 0);
+}
