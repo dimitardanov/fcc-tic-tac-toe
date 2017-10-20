@@ -1,0 +1,27 @@
+
+noscript {
+  display: block;
+  padding-top: 100px;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: #000;
+  }
+
+  p {
+    line-height: 1.2em;
+    font-size: 1.2em;
+    font-family: sans-serif;
+    text-align: center;
+    padding: 20px;
+    margin: 0 30px;
+    border: 1px solid $main-color;
+    background-color: lighten($main-color, 60%);
+  }
+}
