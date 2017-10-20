@@ -1,0 +1,52 @@
+
+svg {
+  stroke-linecap: round;
+  stroke-width: 5;
+  fill: none;
+}
+
+.cross {
+  stroke: $main-color;
+}
+
+.circle {
+  stroke: $alt-color;
+}
+
+.cross line {
+  animation-iteration-count: 1;
+  stroke-dasharray: 114;
+  stroke-dashoffset: 114;
+
+  &:nth-of-type(1) {
+    animation: draw-line .4s linear forwards;
+  }
+
+  &:nth-of-type(2) {
+    animation: draw-line .4s .45s linear forwards;
+  }
+}
+
+.circle circle {
+  animation: draw-circle .9s linear forwards;
+  animation-iteration-count: 1;
+  stroke-dasharray: 252;
+}
+
+@keyframes draw-circle {
+  0% {
+    stroke-dashoffset: 252;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes draw-line {
+  0% {
+    stroke-dashoffset: 114;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
