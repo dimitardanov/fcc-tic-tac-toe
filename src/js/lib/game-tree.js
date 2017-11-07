@@ -87,8 +87,23 @@ function calcMiniMax(node, player) {
     }
   }
 }
+
+function bestMove(node) {
+  var cell = null;
+  node.getChildren().reduce(function(max, child) {
+    var outcome = child.getOutcome();
+    if (outcome > max) {
+      max = outcome;
+      cell = child.getMove();
+    }
+    return max;
+  }, -Infinity);
+  return cell;
+}
+
 module.exports = {
   GameTree: GameTree,
   createGameTree: createGameTree,
   calcMiniMax: calcMiniMax,
+  bestMove: bestMove
 };
