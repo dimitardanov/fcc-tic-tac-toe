@@ -70,7 +70,25 @@ function createGameTree(node) {
   }
 }
 
+function calcMiniMax(node, player) {
+  var result = node.getBoard().resolveBoardForPlayer(player);
+  var results = [];
+  for (var i = 0; i < node.getChildren().length; i++) {
+    calcMiniMax(node.getChildren()[i], player);
+    results.push(node.getChildren()[i].getOutcome());
+  }
+  if (result != undefined) {
+    node.setOutcome(result);
+  } else {
+    if (node.getPlayerId() != player.getId()) {
+      node.setOutcome(Math.max.apply(null, results));
+    } else {
+      node.setOutcome(Math.min.apply(null, results));
+    }
+  }
+}
 module.exports = {
   GameTree: GameTree,
   createGameTree: createGameTree,
+  calcMiniMax: calcMiniMax,
 };
