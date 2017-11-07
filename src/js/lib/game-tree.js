@@ -56,6 +56,21 @@ GameTree.prototype.getPlayerId = function() {
   return this.player.getId();
 };
 
+function createGameTree(node) {
+  var cells = node.getFreeCellsIndexes();
+  var opponent = node.getOpponent();
+  var board = node.getBoard();
+  for (var i = 0; i < cells.length; i++) {
+    var nextMoveBoard = board.createNew(cells[i], opponent.getId());
+    var child = new GameTree(nextMoveBoard, opponent);
+    child.setMove(cells[i]);
+    child.setParent(node);
+    node.addChild(child);
+    createGameTree(child);
+  }
+}
+
 module.exports = {
   GameTree: GameTree,
+  createGameTree: createGameTree,
 };
