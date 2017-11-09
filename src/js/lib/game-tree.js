@@ -80,6 +80,8 @@ function calcMiniMax(node, player) {
   if (result != undefined) {
     node.setOutcome(result);
   } else {
+    // set optimal outcome for the player made the move
+    // the value corresponds to the best option of the player from the ply below
     if (node.getPlayerId() != player.getId()) {
       node.setOutcome(Math.max.apply(null, results));
     } else {
