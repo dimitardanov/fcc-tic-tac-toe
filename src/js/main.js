@@ -6,7 +6,6 @@ const render = require('./renderers/render.js');
 const Board = require('./lib/board.js').Board;
 const Player = require('./lib/player.js').Player;
 const AIPlayer = require('./lib/ai-player.js').AI;
-const gt = require('./lib/game-tree.js');
 
 const boardHTML = document.getElementById('board');
 

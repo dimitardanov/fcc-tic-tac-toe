@@ -1,7 +1,7 @@
 
 var Player = require('./player.js').Player;
 var ai = require('./ai.js');
-var gt = require('./game-tree.js');
+var mm = require('./minimax.js');
 
 function AI(id, board) {
   Player.call(this, id, board);
@@ -17,11 +17,8 @@ AI.prototype.takeTurn = function() {
     this.setPlayed();
     return ai.round1Player1MoveIndex(this.board, this);
   } else {
-    var gameTree = new gt.GameTree(
-      this.board.duplicateBoard(), this.getOpponent());
-    gt.createGameTree(gameTree);
-    gt.calcMiniMax(gameTree, this);
-    var bestMove = gt.bestMove(gameTree);
+    var state = new mm.State(this.board);
+    var bestMove = mm.minimax(state, this);
     this.board.fillCell(bestMove, this.getId());
     return bestMove;
   }
