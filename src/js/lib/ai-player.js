@@ -1,7 +1,6 @@
 
 var Player = require('./player.js').Player;
 var ai = require('./ai.js');
-var minimax = require('./minimax.js').minimax;
 
 function AI(id, state) {
   Player.call(this, id, state);
@@ -17,7 +16,7 @@ AI.prototype.takeTurn = function() {
     this.setPlayed();
     return ai.round1Player1MoveIndex(this.state, this);
   } else {
-    var bestMove = minimax(this.state, this);
+    var bestMove = ai.minimax(this.state, this);
     this.state.takeAction(bestMove, this.getId());
     return bestMove;
   }
