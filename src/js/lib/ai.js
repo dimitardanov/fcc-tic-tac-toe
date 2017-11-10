@@ -18,36 +18,36 @@ function round1Player1Action(state, player) {
   }
 }
 
-function minimax(state, player) {
-  var optAction;
-  var v = -Infinity;
-  var actions = state.getActions();
-  for (var i = 0; i < actions.length; i++) {
-    var newState = state.createNew(actions[i], player);
-    var maxV = Math.max(v, _minVal(newState, player));
-    if (v < maxV) {
-      v = maxV;
-      optAction = actions[i];
-    }
-  }
-  return optAction;
+function alphaBetaSearch(state, player) {
+  var alpha = -Infinity;
+  var beta = Infinity;
+  return _maxABVal(state, player, alpha, beta)[1];
 }
 
-function _maxVal(state, player) {
+function _maxABVal(state, player, alpha, beta) {
   if (state.isTerminal(player)) {
-    return state.utilityFor(player);
+    return [state.utilityFor(player), state.selectRandomAction()];
   } else {
+    var optAction;
     var v = -Infinity;
     var actions = state.getActions();
     for (var i = 0; i < actions.length; i++) {
       var newState = state.createNew(actions[i], player);
-      v = Math.max(v, _minVal(newState, player));
+      var minV = _minABVal(newState, player, alpha, beta);
+      if (v < minV) {
+        v = minV;
+        optAction = actions[i];
+      }
+      if (v >= beta) {
+        return [v, optAction];
+      }
+      alpha = Math.max(alpha, v);
     }
-    return v;
+    return [v, optAction];
   }
 }
 
-function _minVal(state, player) {
+function _minABVal(state, player, alpha, beta) {
   if (state.isTerminal(player)) {
     return state.utilityFor(player);
   } else {
@@ -55,7 +55,11 @@ function _minVal(state, player) {
     var actions = state.getActions();
     for (var i = 0; i < actions.length; i++) {
       var newState = state.createNew(actions[i], player.getOpponent());
-      v = Math.min(v, _maxVal(newState, player));
+      v = Math.min(v, _maxABVal(newState, player, alpha, beta)[0]);
+      if (v <= alpha) {
+        return v;
+      }
+      beta = Math.min(beta, v);
     }
     return v;
   }
@@ -64,5 +68,5 @@ function _minVal(state, player) {
 module.exports = {
   round1Player0Action: round1Player0Action,
   round1Player1Action: round1Player1Action,
-  minimax: minimax
+  alphaBetaSearch: alphaBetaSearch
 };

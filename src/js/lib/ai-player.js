@@ -16,7 +16,7 @@ AI.prototype.act = function() {
     this.setPlayed();
     return ai.round1Player1Action(this.state, this);
   } else {
-    var optAction = ai.minimax(this.state, this);
+    var optAction = ai.alphaBetaSearch(this.state, this);
     this.state.takeAction(optAction, this.getId());
     return optAction;
   }
