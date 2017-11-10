@@ -12,9 +12,6 @@ AI.prototype.act = function() {
   if (!this.hasPlayed() && !this.hasOpponentPlayed()) {
     this.setPlayed();
     return ai.round1Player0Action(this);
-  } else if (!this.hasPlayed()) {
-    this.setPlayed();
-    return ai.round1Player1Action(this.state, this);
   } else {
     var optAction = ai.alphaBetaSearch(this.state, this);
     this.state.takeAction(optAction, this.getId());

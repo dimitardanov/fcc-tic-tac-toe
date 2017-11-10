@@ -10,14 +10,6 @@ function round1Player0Action(state, player) {
   }
 }
 
-function round1Player1Action(state, player) {
-  if (state.isActionCenterFree()) {
-    return state.actCenter(player.getId());
-  } else {
-    return state.actRandomCorner(player.getId());
-  }
-}
-
 function alphaBetaSearch(state, player) {
   var alpha = -Infinity;
   var beta = Infinity;
@@ -67,6 +59,5 @@ function _minABVal(state, player, alpha, beta) {
 
 module.exports = {
   round1Player0Action: round1Player0Action,
-  round1Player1Action: round1Player1Action,
   alphaBetaSearch: alphaBetaSearch
 };
