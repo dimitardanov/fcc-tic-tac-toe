@@ -57,16 +57,13 @@ State.prototype.selectRandomAction = function() {
 };
 
 State.prototype._takeRandomActionFrom = function(playerId, actions, msg) {
-  for (var i = 0; i < 4; i++) {
-    var randomIndex = Math.floor(actions.length * Math.random());
-    var action = actions[randomIndex];
-    actions.splice(randomIndex, 1);
-    if (this.state[action] == undefined) {
-      this.state[action] = playerId;
-      return action;
-    }
+  var action = this._selectRandomActionFrom(actions);
+  if (this.state[action] == undefined) {
+    this.state[action] = playerId;
+    return action;
+  } else {
+    throw new Error(msg);
   }
-  throw new Error(msg);
 };
 
 State.prototype.actRandomCorner = function(playerId) {
