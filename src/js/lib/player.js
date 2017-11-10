@@ -5,9 +5,9 @@ function Player(id, state) {
   this.playedFirstMove = false;
 }
 
-Player.prototype.takeTurn = function(cell) {
+Player.prototype.act = function(action) {
   this.playedFirstMove = true;
-  this.state.takeAction(cell, this.id);
+  this.state.takeAction(action, this.id);
 };
 
 Player.prototype.setOpponent = function(player) {

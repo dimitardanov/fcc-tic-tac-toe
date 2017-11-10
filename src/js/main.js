@@ -26,14 +26,14 @@ function makeMove(e) {
     render.cross(e.target);
     boardHTML.removeEventListener('click', makeMove);
     var cell = event.target.getAttribute('id');
-    humanPlayer.takeTurn(cell);
+    humanPlayer.act(cell);
     takeAITurn();
   }
 }
 
 function takeAITurn() {
   if (state.hasActionsLeft()) {
-    var cell = aiPlayer.takeTurn();
+    var cell = aiPlayer.act();
     var cellHTML = document.getElementById(cell);
     cellHTML.classList.remove('free');
     render.circle(cellHTML);

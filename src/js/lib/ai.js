@@ -1,5 +1,5 @@
 
-function round1Player0MoveIndex(state, player) {
+function round1Player0Action(state, player) {
   var rand = Math.random();
   if (rand < 0.6) {
     return state.actRandomCorner(player.getId());
@@ -10,7 +10,7 @@ function round1Player0MoveIndex(state, player) {
   }
 }
 
-function round1Player1MoveIndex(state, player) {
+function round1Player1Action(state, player) {
   if (state.isActionCenterFree()) {
     return state.actCenter(player.getId());
   } else {
@@ -62,7 +62,7 @@ function _minVal(state, player) {
 }
 
 module.exports = {
-  round1Player0MoveIndex: round1Player0MoveIndex,
-  round1Player1MoveIndex: round1Player1MoveIndex,
+  round1Player0Action: round1Player0Action,
+  round1Player1Action: round1Player1Action,
   minimax: minimax
 };

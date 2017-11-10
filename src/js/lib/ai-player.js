@@ -8,17 +8,17 @@ function AI(id, state) {
 
 AI.prototype = Object.create(Player.prototype);
 
-AI.prototype.takeTurn = function() {
+AI.prototype.act = function() {
   if (!this.hasPlayed() && !this.hasOpponentPlayed()) {
     this.setPlayed();
-    return ai.round1Player0MoveIndex(this);
+    return ai.round1Player0Action(this);
   } else if (!this.hasPlayed()) {
     this.setPlayed();
-    return ai.round1Player1MoveIndex(this.state, this);
+    return ai.round1Player1Action(this.state, this);
   } else {
-    var bestMove = ai.minimax(this.state, this);
-    this.state.takeAction(bestMove, this.getId());
-    return bestMove;
+    var optAction = ai.minimax(this.state, this);
+    this.state.takeAction(optAction, this.getId());
+    return optAction;
   }
 };
 
