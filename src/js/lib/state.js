@@ -47,6 +47,15 @@ State.prototype.actCenter = function(playerId) {
   }
 };
 
+State.prototype._selectRandomActionFrom = function(actions) {
+  var randomActionIndex = Math.floor(Math.random() * actions.length);
+  return actions[randomActionIndex];
+};
+
+State.prototype.selectRandomAction = function() {
+  return this._selectRandomActionFrom(this.getActions());
+};
+
 State.prototype._takeRandomActionFrom = function(playerId, actions, msg) {
   for (var i = 0; i < 4; i++) {
     var randomIndex = Math.floor(actions.length * Math.random());
