@@ -1,13 +1,13 @@
 
-function Player(id, board) {
+function Player(id, state) {
   this.id = id;
-  this.board = board;
+  this.state = state;
   this.playedFirstMove = false;
 }
 
 Player.prototype.takeTurn = function(cell) {
   this.playedFirstMove = true;
-  this.board.fillCell(cell, this.id);
+  this.state.takeAction(cell, this.id);
 };
 
 Player.prototype.setOpponent = function(player) {

@@ -3,7 +3,7 @@
 // var bootstrap = require('bootstrap-sass');
 
 const render = require('./renderers/render.js');
-const Board = require('./lib/board.js').Board;
+const State = require('./lib/state.js').State;
 const Player = require('./lib/player.js').Player;
 const AIPlayer = require('./lib/ai-player.js').AI;
 
@@ -11,9 +11,9 @@ const boardHTML = document.getElementById('board');
 
 render.emptyCells(boardHTML, 9);
 
-var board = new Board();
-var humanPlayer = new Player(1, board);
-var aiPlayer = new AIPlayer(10, board);
+var state = new State();
+var humanPlayer = new Player(1, state);
+var aiPlayer = new AIPlayer(10, state);
 humanPlayer.setOpponent(aiPlayer);
 aiPlayer.setOpponent(humanPlayer);
 
@@ -32,7 +32,7 @@ function makeMove(e) {
 }
 
 function takeAITurn() {
-  if (board.hasMovesLeft()) {
+  if (state.hasActionsLeft()) {
     var cell = aiPlayer.takeTurn();
     var cellHTML = document.getElementById(cell);
     cellHTML.classList.remove('free');
