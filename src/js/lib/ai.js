@@ -1,4 +1,6 @@
 
+const shuffle = require('../helpers/helpers.js').shuffle;
+
 function round1Player0Action(state, player) {
   var rand = Math.random();
   if (rand < 0.6) {
@@ -22,7 +24,7 @@ function _maxABVal(state, player, alpha, beta) {
   } else {
     var optAction;
     var v = -Infinity;
-    var actions = state.getActions();
+    var actions = shuffle(state.getActions());
     for (var i = 0; i < actions.length; i++) {
       var newState = state.createNew(actions[i], player);
       var minV = _minABVal(newState, player, alpha, beta);
@@ -44,7 +46,7 @@ function _minABVal(state, player, alpha, beta) {
     return state.utilityFor(player);
   } else {
     var v = Infinity;
-    var actions = state.getActions();
+    var actions = shuffle(state.getActions());
     for (var i = 0; i < actions.length; i++) {
       var newState = state.createNew(actions[i], player.getOpponent());
       v = Math.min(v, _maxABVal(newState, player, alpha, beta)[0]);

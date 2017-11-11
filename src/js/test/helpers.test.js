@@ -76,3 +76,34 @@ describe('isDraw func', function() {
     }
   );
 });
+
+describe('shuffle func', function() {
+  before(function() {
+    this.initArr = ['a', 'b', 'c', 'd'];
+    this.newArr = h.shuffle(this.initArr);
+  });
+
+  after(function() {
+    delete this.initArr;
+    delete this.newArr;
+  });
+
+  it('should return empty array if given empty array', function() {
+    expect(h.shuffle([])).to.be.an('array').and.to.be.empty;
+  });
+
+  it('should return an array with the same length', function() {
+    expect(this.newArr).to.have.lengthOf(this.initArr.length);
+  });
+
+  it('should return array that is not the same as the given', function() {
+    expect(this.newArr).to.not.deep.equal(this.initArr);
+  });
+
+  it('should return an array with the same items', function() {
+    expect(this.newArr).to.include('a')
+                       .and.to.include('b')
+                       .and.to.include('c')
+                       .and.to.include('d');
+  });
+});

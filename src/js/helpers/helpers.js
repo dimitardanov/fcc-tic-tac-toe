@@ -61,10 +61,21 @@ function resolveBoard(arr, playerId, opponentId) {
   }
 }
 
+function shuffle(arr) {
+  var randArr = [];
+  var arrCopy = arr.map(function(el) { return el; });
+  while (arrCopy.length > 0) {
+    var ind = Math.floor(Math.random() * arrCopy.length);
+    randArr.push(arrCopy.splice(ind, 1)[0]);
+  }
+  return randArr;
+}
+
 module.exports = {
   range: range,
   sum: sum,
   createRowValues: createRowValues,
   isDraw: isDraw,
-  resolveBoard: resolveBoard
+  resolveBoard: resolveBoard,
+  shuffle: shuffle
 };
