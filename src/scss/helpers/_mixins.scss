@@ -1,1 +1,20 @@
 // _mixins
+
+@mixin button($color) {
+  background-color: $color;
+
+  &:active,
+  &:focus {
+    box-shadow: 0 0 0 2px $color;
+  }
+}
+
+@mixin animation($name, $duration, $delay) {
+  animation-name: $name;
+  animation-duration: $duration;
+  animation-delay: $delay;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-direction: normal;
+  animation-timing-function: ease-in-out;
+}
