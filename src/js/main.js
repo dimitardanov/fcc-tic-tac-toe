@@ -1,44 +1,84 @@
 
-// window.jQuery = $ = require('jquery');
-// var bootstrap = require('bootstrap-sass');
-
 const render = require('./renderers/render.js');
-const State = require('./lib/state.js').State;
-const Player = require('./lib/player.js').Player;
-const AIPlayer = require('./lib/ai-player.js').AI;
+const Game = require('./lib/game.js').Game;
 
 const boardHTML = document.getElementById('board');
+const bodyHTML = document.querySelector('body');
 
-render.emptyCells(boardHTML, 9);
+var playerOrderHTML = {
+  first: {
+    scoreElement: document.querySelector('#player-first-score'),
+    board: document.querySelector('.player-first'),
+    symbolFunc: render.cross
+  },
+  second: {
+    scoreElement: document.querySelector('#player-second-score'),
+    board: document.querySelector('.player-second'),
+    symbolFunc: render.circle
+  }
+};
+var game = new Game(boardHTML);
 
-var state = new State();
-var humanPlayer = new Player(1, state);
-var aiPlayer = new AIPlayer(10, state);
-humanPlayer.setOpponent(aiPlayer);
-aiPlayer.setOpponent(humanPlayer);
+function getGamePreferences() {
+  var dialogHTML = render.dialog(bodyHTML, 'prefs', {});
+  dialogHTML.addEventListener('click', dialogPrefEventHandler);
 
-boardHTML.addEventListener('click', makeMove);
+  function dialogPrefEventHandler(event) {
+    if (event.target.nodeName.toLowerCase() == 'button') {
+      dialogHTML.removeEventListener('click', dialogPrefEventHandler);
+      game.setPlayerOrder(
+        event.target.getAttribute('data-player'),
+        playerOrderHTML
+      );
+      play(game);
+    }
+  }
+}
 
-function makeMove(e) {
-  if (e.target.classList.contains('cell') &&
-      e.target.classList.contains('free')) {
-    e.target.classList.remove('free');
-    render.cross(e.target);
-    boardHTML.removeEventListener('click', makeMove);
-    var cell = event.target.getAttribute('id');
-    humanPlayer.act(cell);
+function play(game) {
+  game.init();
+  if (game.isHumanFirst()) {
+    boardHTML.addEventListener('click', makeMove);
+  } else {
     takeAITurn();
   }
-}
 
-function takeAITurn() {
-  if (state.hasActionsLeft()) {
-    var cell = aiPlayer.act();
-    var cellHTML = document.getElementById(cell);
-    cellHTML.classList.remove('free');
-    render.circle(cellHTML);
+  function endGame() {
     setTimeout(function() {
-      boardHTML.addEventListener('click', makeMove);
-    }, 900);
+      var dialogHTML = game.runGameOverSequence(bodyHTML);
+      dialogHTML.addEventListener('click', endGameHandler);
+
+      function endGameHandler(event) {
+        if (event.target.nodeName.toLowerCase() == 'button') {
+          dialogHTML.removeEventListener('click', endGameHandler);
+          play(game);
+        }
+      }
+    }, 1000);
+  }
+
+  function makeMove(e) {
+    if (render.isCellFree(e.target)) {
+      game.playerTakeATurn(e.target);
+      boardHTML.removeEventListener('click', makeMove);
+      if (!game.isGameOver()) {
+        takeAITurn();
+      } else {
+        endGame();
+      }
+    }
+  }
+
+  function takeAITurn() {
+    game.aiTakeATurn();
+    if (game.isGameOver()) {
+      endGame();
+    } else {
+      setTimeout(function() {
+        boardHTML.addEventListener('click', makeMove);
+      }, 900);
+    }
   }
 }
+
+getGamePreferences();
