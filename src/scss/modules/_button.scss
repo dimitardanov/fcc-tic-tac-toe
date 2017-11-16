@@ -1,0 +1,23 @@
+
+.btn {
+  margin: 20px;
+  font-size: 1.2em;
+  padding: 10px;
+  color: $text-color-lighter;
+  border: 2px solid $text-color-lighter;
+  outline: none;
+  width: 90px;
+}
+
+.btn-start {
+  @include button($main-color);
+}
+
+.btn-nonstart {
+  @include button($alt-color);
+}
+
+.btn-continue {
+  @include button($neutral-color);
+  width: auto;
+}
