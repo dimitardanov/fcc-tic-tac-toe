@@ -107,3 +107,80 @@ describe('shuffle func', function() {
                        .and.to.include('d');
   });
 });
+
+describe('getWinSequence func', function() {
+  beforeEach(function() {
+    this.row0 = [10, 10, 10,
+                 1, 1, 10,
+                 10, 10, 1];
+    this.row1 = [10, 1, 10,
+                 1, 1, 1,
+                 10, 10, 1];
+    this.row2 = [10, 10, 1,
+                 1, 10, 10,
+                 1, 1, 1];
+    this.col0 = [1, 10, 10,
+                 1, 10, 1,
+                 1, 1, 10];
+    this.col1 = [10, 1, 10,
+                 1, 1, 10,
+                 10, 1, 1];
+    this.col2 = [10, 1, 1,
+                 1, 10, 1,
+                 10, 1, 1];
+    this.diag0 = [10, 1, 1,
+                 1, 10, 10,
+                 1, 1, 10];
+    this.diag1 = [1, 1, 10,
+                  1, 10, 1,
+                  10, 1, 1];
+  });
+
+  afterEach(function() {
+    delete this.row0;
+    delete this.row1;
+    delete this.row2;
+    delete this.col0;
+    delete this.col1;
+    delete this.col2;
+    delete this.diag0;
+    delete this.diag1;
+  });
+
+  it('should return a two element-array', function() {
+    expect(h.getWinSequence(this.row0, 1, 10))
+        .to.be.an('array').and.to.have.lengthOf(2);
+  });
+
+  it('should return ["row", 0]', function() {
+    expect(h.getWinSequence(this.row0, 1, 10)).to.deep.equal(['row', 0]);
+  });
+
+  it('should return ["row", 1]', function() {
+    expect(h.getWinSequence(this.row1, 10, 1)).to.deep.equal(['row', 1]);
+  });
+
+  it('should return ["row", 2]', function() {
+    expect(h.getWinSequence(this.row2, 10, 1)).to.deep.equal(['row', 2]);
+  });
+
+  it('should return ["col", 0]', function() {
+    expect(h.getWinSequence(this.col0, 1, 10)).to.deep.equal(['col', 0]);
+  });
+
+  it('should return ["col", 1]', function() {
+    expect(h.getWinSequence(this.col1, 1, 10)).to.deep.equal(['col', 1]);
+  });
+
+  it('should return ["col", 2]', function() {
+    expect(h.getWinSequence(this.col2, 1, 10)).to.deep.equal(['col', 2]);
+  });
+
+  it('should return ["diagonal", 0]', function() {
+    expect(h.getWinSequence(this.diag0, 10, 1)).to.deep.equal(['diagonal', 0]);
+  });
+
+  it('should return ["diagonal", 1]', function() {
+    expect(h.getWinSequence(this.diag1, 10, 1)).to.deep.equal(['diagonal', 1]);
+  });
+});
