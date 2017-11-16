@@ -1,4 +1,13 @@
 
+const indexes = [
+  // Rows
+  [0, 1, 2], [3, 4, 5], [6, 7, 8],
+  // Columns
+  [0, 3, 6], [1, 4, 7], [2, 5, 8],
+  // Diagonals
+  [0, 4, 8], [2, 4, 6]
+];
+
 function range(num) {
   var vals = [];
   for (var i = 0; i < num; i++) {
@@ -18,14 +27,6 @@ function sum(arr) {
 }
 
 function createRowValues(arr) {
-  var indexes = [
-    // Rows
-    [0, 1, 2], [3, 4, 5], [6, 7, 8],
-    // Columns
-    [0, 3, 6], [1, 4, 7], [2, 5, 8],
-    // Diagonals
-    [0, 4, 8], [2, 4, 6]
-  ];
   var rowValues = [];
   for (var i = 0; i < indexes.length; i++) {
     var row = indexes[i].reduce(function(acc, ind) {
@@ -72,16 +73,16 @@ function shuffle(arr) {
 }
 
 function getWinSequence(arr, playerId, opponentId) {
-  var ind;
   var wins = [3 * playerId, 3 * opponentId];
-  createRowValues(arr).forEach(function(el, i) {
-    if (wins.includes(el)) {
-      ind = i;
+  arr = createRowValues(arr);
+  for (var i = 0; i < arr.length; i++) {
+    if (wins.indexOf(arr[i]) != -1) {
+      var ind = i;
     }
-  });
-  if ([0, 1, 2].includes(ind)) {
+  }
+  if ([0, 1, 2].indexOf(ind) != -1) {
     return ['row', ind];
-  } else if ([3, 4, 5].includes(ind)) {
+  } else if ([3, 4, 5].indexOf(ind) != -1) {
     return ['col', ind - 3];
   } else {
     return ['diagonal', ind - 6];
