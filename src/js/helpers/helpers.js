@@ -71,11 +71,29 @@ function shuffle(arr) {
   return randArr;
 }
 
+function getWinSequence(arr, playerId, opponentId) {
+  var ind;
+  var wins = [3 * playerId, 3 * opponentId];
+  createRowValues(arr).forEach(function(el, i) {
+    if (wins.includes(el)) {
+      ind = i;
+    }
+  });
+  if ([0, 1, 2].includes(ind)) {
+    return ['row', ind];
+  } else if ([3, 4, 5].includes(ind)) {
+    return ['col', ind - 3];
+  } else {
+    return ['diagonal', ind - 6];
+  }
+}
+
 module.exports = {
   range: range,
   sum: sum,
   createRowValues: createRowValues,
   isDraw: isDraw,
   resolveBoard: resolveBoard,
-  shuffle: shuffle
+  shuffle: shuffle,
+  getWinSequence: getWinSequence
 };

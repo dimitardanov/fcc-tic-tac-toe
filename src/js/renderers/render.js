@@ -5,6 +5,8 @@ var circleTempl = require('../templates/circle.hbs');
 var crossTempl = require('../templates/cross.hbs');
 var prefsDialogTempl = require('../templates/prefsDialog.hbs');
 var gameOverDialogTempl = require('../templates/gameOverDialog.hbs');
+var diagonalStrikeTempl = require('../templates/diagonalLine.hbs');
+var straightStrikeTempl = require('../templates/straightLine.hbs');
 
 function renderCells(parent, numCells) {
   var cells = helpers.range(numCells);
@@ -78,6 +80,36 @@ function setBoardText(element, text) {
   element.textContent = text;
 }
 
+function diagonalStrike(parent, isFirstPlayer, isTopLeftBottomRight) {
+  var data = {
+    playerClass: 'second-player',
+    orientation: 'bottomLeft-topRight'
+  };
+  if (isFirstPlayer) {
+    data.playerClass = 'first-player';
+  }
+  if (isTopLeftBottomRight) {
+    data.orientation = 'topLeft-bottomRight';
+  }
+  parent.insertAdjacentHTML('beforeend', diagonalStrikeTempl(data));
+}
+
+function straightStrike(parent, isFirstPlayer, isHorizontal, pos) {
+  var data = {
+    playerClass: 'second-player',
+    orientation: 'vertical',
+    pos: null
+  };
+  if (isFirstPlayer) {
+    data.playerClass = 'first-player';
+  }
+  if (isHorizontal) {
+    data.orientation = 'horizontal';
+  }
+  data.pos = ['first', 'second', 'third'][pos];
+  parent.insertAdjacentHTML('beforeend', straightStrikeTempl(data));
+}
+
 module.exports = {
   emptyCells: renderCells,
   circle: renderCircle,
@@ -89,5 +121,7 @@ module.exports = {
   isCellFree: isCellFree,
   showPlayerBoard: showPlayerBoard,
   hidePlayerBoard: hidePlayerBoard,
-  setBoardText: setBoardText
+  setBoardText: setBoardText,
+  diagonalStrike: diagonalStrike,
+  straightStrike: straightStrike
 };

@@ -13,6 +13,77 @@ svg {
   stroke: $alt-color;
 }
 
+.strike {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  stroke-width: 3;
+
+  &.first-player line {
+    stroke: $main-color;
+  }
+
+  &.second-player line {
+    stroke: $alt-color;
+  }
+
+  &.diagonal {
+    &.bottomLeft-topRight {
+      transform: rotate(-90deg);
+    }
+
+    line {
+      stroke-dasharray: 144;
+      stroke-dashoffset: 144;
+      animation: draw-diagonal-strike .5s linear forwards;
+      animation-iteration-count: 1;
+    }
+  }
+
+  &.straight {
+    &.vertical {
+      transform: rotate(90deg);
+      top: 33.3%;
+
+      &.first {
+        left: -33.3%;
+      }
+
+      &.second {
+        left: 0;
+      }
+
+      &.third {
+        left: 33.3%;
+      }
+    }
+
+    &.horizontal {
+
+      &.first {
+        top: 0;
+      }
+
+      &.second {
+        top: 33.3%;
+      }
+
+      &.third {
+        top: 66.6%;
+      }
+    }
+
+    line {
+      stroke-dasharray: 95;
+      stroke-dashoffset: 95;
+      animation: draw-straight-strike .5s linear forwards;
+      animation-iteration-count: 1;
+    }
+  }
+}
+
 .cross line {
   animation-iteration-count: 1;
   stroke-dasharray: 114;
@@ -31,6 +102,24 @@ svg {
   animation: draw-circle .4s linear forwards;
   animation-iteration-count: 1;
   stroke-dasharray: 252;
+}
+
+@keyframes draw-straight-strike {
+  0% {
+    stroke-dashoffset: 95;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes draw-diagonal-strike {
+  0% {
+    stroke-dashoffset: 144;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
 }
 
 @keyframes draw-circle {

@@ -110,6 +110,11 @@ State.prototype.isTerminal = function(player) {
   return [-1, 0, 1].includes(this.utilityFor(player));
 };
 
+State.prototype.getWinSequenceId = function(player) {
+  return helpers.getWinSequence(
+    this.state, player.getId(), player.getOpponentId());
+};
+
 module.exports = {
   State: State
 };

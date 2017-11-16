@@ -9,12 +9,14 @@ var playerOrderHTML = {
   first: {
     scoreElement: document.querySelector('#player-first-score'),
     board: document.querySelector('.player-first'),
-    symbolFunc: render.cross
+    symbolFunc: render.cross,
+    first: true
   },
   second: {
     scoreElement: document.querySelector('#player-second-score'),
     board: document.querySelector('.player-second'),
-    symbolFunc: render.circle
+    symbolFunc: render.circle,
+    first: false
   }
 };
 var game = new Game(boardHTML);

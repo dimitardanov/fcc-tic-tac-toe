@@ -85,7 +85,24 @@ Game.prototype.runGameOverSequence = function(bodyHTML) {
   var utility = this.state.utilityFor(this.player.actor);
   this._updateScore(utility);
   this._showGameOverBoard();
+  this._drawStrikeLine(utility);
   return this._showGameOverDialog(utility, bodyHTML);;
+};
+
+Game.prototype._drawStrikeLine = function(utility) {
+  if (utility != 0) {
+    var isFirstPlayer = (utility == -1 && this.ai.html.first);
+    var winSequence = this.state.getWinSequenceId(this.player.actor);
+    if (winSequence[0] == 'diagonal') {
+      render.diagonalStrike(this.boardHTML, isFirstPlayer, winSequence[1] == 0);
+    } else {
+      render.straightStrike(
+        this.boardHTML,
+        isFirstPlayer,
+        winSequence[0] == 'row',
+        winSequence[1]);
+    }
+  }
 };
 
 Game.prototype.isHumanFirst = function() {
