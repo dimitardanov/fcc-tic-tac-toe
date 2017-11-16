@@ -1,1 +1,45 @@
 // _layout
+
+#game {
+  width: 240px;
+
+  @media screen and (min-width: 480px) {
+    width: 480px;
+  }
+
+  @media screen and (min-width: 600px) {
+    width: 600px;
+  }
+}
+
+#board {
+  width: 240px;
+  height: 240px;
+
+  @media screen and (min-width: 480px) {
+    width: 480px;
+    height: 480px;
+  }
+}
+
+.cell {
+  width: 80px;
+  height: 80px;
+
+  @media screen and (min-width: 480px) {
+    width: 160px;
+    height: 160px;
+  }
+}
+
+.player {
+  @media screen and (min-width: 480px) {
+    &:first-child {
+      margin-left: 50px;
+    }
+
+    &:last-child {
+      margin-right: 50px;
+    }
+  }
+}

@@ -1,15 +1,11 @@
 
 #board {
-  width: 450px;
-  height: 450px;
   margin: 0 auto;
 }
 
 
 .cell {
   float: left;
-  width: 150px;
-  height: 150px;
   border-bottom: 2px solid $gray-base;
   border-right: 2px solid $gray-base;
 

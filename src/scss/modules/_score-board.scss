@@ -31,14 +31,6 @@
   transition-property: transform;
   transition-timing-function: ease-in-out;
   transform: translate(0, 25px);
-
-  &:first-child {
-    margin-left: 50px;
-  }
-
-  &:last-child {
-    margin-right: 50px;
-  }
 }
 
 .player-first {
@@ -50,5 +42,5 @@
 }
 
 .player-active {
-  transform: translate(0, 0);
+  transform: translate(0, 1px);
 }
